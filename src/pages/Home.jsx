@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, BarChart3, Database, MapPinned, Sprout } from "lucide-react"
+import { ArrowRight, BarChart3, Database, MapPinned } from "lucide-react"
 import SumateraMap from "../components/map/SumateraMap"
 import { DATASET_STATS, DEFAULT_METRIC, DEFAULT_YEAR } from "../data/constants"
 import { useRiceData } from "../hooks/useRiceData"
@@ -15,102 +15,95 @@ export default function Home() {
   )
 
   return (
-    <div className="space-y-6">
-      <section className="relative min-h-[72vh] overflow-hidden rounded-lg border border-slate-200 bg-forest-900 shadow-soft">
-        {latestData.length > 0 && (
-          <div className="absolute inset-0">
-            <SumateraMap
-              data={latestData}
-              metric={DEFAULT_METRIC}
-              interactive={false}
-              className="h-full rounded-none border-0 shadow-none"
-            />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/88 to-white/35" />
-        <div className="relative z-10 flex min-h-[72vh] max-w-4xl flex-col justify-center px-6 py-14 sm:px-10 lg:px-14">
-          <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-forest-200 bg-white/80 px-4 py-2 text-sm font-semibold text-forest-800 shadow-panel backdrop-blur">
-            <Sprout className="h-4 w-4" aria-hidden="true" />
-            GIS Agro-Klimatologi Padi
-          </div>
-          <h1 className="max-w-3xl text-4xl font-black leading-tight text-forest-900 sm:text-5xl lg:text-6xl">
-            SIGAP SUMATERA
-          </h1>
-          <p className="mt-4 max-w-3xl text-xl font-semibold text-slate-800">
+    <div>
+      <section className="apple-tile bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-[1440px] text-center">
+          <p className="apple-display text-[21px] font-semibold leading-[1.19] text-apple-ink">
             Sistem Informasi Geografis Agro-Klimatologi Padi Sumatera
           </p>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-            Visualisasi produksi padi, luas panen, dan faktor iklim historis berbasis
-            provinsi untuk membaca pola pertanian Sumatera secara spasial dan analitik.
+          <h1 className="apple-display mx-auto mt-3 max-w-5xl text-[42px] font-semibold leading-[1.07] text-apple-ink sm:text-[56px]">
+            SIGAP SUMATERA
+          </h1>
+          <p className="mx-auto mt-5 max-w-3xl text-[21px] leading-[1.47] text-apple-ink sm:text-[28px] sm:leading-[1.14]">
+            Visualisasi data produksi padi, luas panen, dan faktor iklim berbasis
+            wilayah untuk analisis pertanian Sumatera.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/dashboard"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-forest-700 px-5 text-sm font-bold text-white shadow-panel transition hover:bg-forest-900"
+              className="apple-pill inline-flex items-center justify-center gap-2 bg-apple-blue px-[22px] py-[11px] text-[17px] leading-[1.47] text-white transition hover:bg-apple-blueFocus"
             >
               Buka Dashboard
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <Link
               to="/data"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white/90 px-5 text-sm font-bold text-slate-800 transition hover:bg-white"
+              className="apple-pill inline-flex items-center justify-center border border-apple-blue px-[22px] py-[11px] text-[17px] leading-[1.47] text-apple-blue transition hover:bg-apple-pearl"
             >
               Lihat Data
             </Link>
           </div>
 
-          <div className="mt-10 grid max-w-3xl grid-cols-2 gap-3 lg:grid-cols-4">
-            {DATASET_STATS.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-lg border border-white/70 bg-white/85 p-4 shadow-panel backdrop-blur"
-              >
-                <p className="text-2xl font-black text-forest-900">{stat.value}</p>
-                <p className="mt-1 text-sm font-medium text-slate-600">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+          {latestData.length > 0 && (
+            <div className="apple-product-shadow mx-auto mt-12 max-w-6xl overflow-hidden rounded-[18px] border border-apple-hairline">
+              <SumateraMap
+                data={latestData}
+                metric={DEFAULT_METRIC}
+                interactive={false}
+                className="h-[420px] rounded-none border-0"
+              />
+            </div>
+          )}
         </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-3">
-        {[
-          {
-            title: "Peta Marker",
-            text: "Koordinat memakai titik ibu kota provinsi sebagai aproksimasi level provinsi.",
-            icon: MapPinned,
-            tone: "text-forest-700 bg-forest-50",
-          },
-          {
-            title: "Analitik Produksi",
-            text: "KPI, ranking, dan grafik berubah mengikuti tahun aktif dari 1993 sampai 2020.",
-            icon: BarChart3,
-            tone: "text-harvest-600 bg-harvest-100",
-          },
-          {
-            title: "Data Historis",
-            text: "Data explorer mendukung pencarian, filter, sorting, pagination, dan export CSV.",
-            icon: Database,
-            tone: "text-climate-700 bg-climate-100",
-          },
-        ].map((item) => {
-          const Icon = item.icon
-          return (
-            <article
-              key={item.title}
-              className="rounded-lg border border-slate-200 bg-white p-5 shadow-panel"
-            >
-              <span
-                className={`mb-4 flex h-11 w-11 items-center justify-center rounded-lg ${item.tone}`}
-              >
-                <Icon className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <h2 className="text-lg font-bold text-slate-950">{item.title}</h2>
-              <p className="mt-2 leading-6 text-slate-600">{item.text}</p>
-            </article>
-          )
-        })}
+      <section className="apple-tile bg-apple-parchment py-16 sm:py-20">
+        <div className="mx-auto grid max-w-[980px] gap-4 text-center sm:grid-cols-2 lg:grid-cols-4">
+          {DATASET_STATS.map((stat) => (
+            <div key={stat.label} className="rounded-[18px] border border-apple-hairline bg-white p-6">
+              <p className="apple-display text-[40px] font-semibold leading-[1.1] text-apple-ink">
+                {stat.value}
+              </p>
+              <p className="mt-2 text-[14px] leading-[1.43] text-apple-muted">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="apple-tile bg-apple-tile py-16 text-white sm:py-20">
+        <div className="mx-auto grid max-w-[1440px] gap-5 lg:grid-cols-3">
+          {[
+            {
+              title: "Peta Marker",
+              text: "Koordinat memakai titik ibu kota provinsi sebagai aproksimasi level provinsi.",
+              icon: MapPinned,
+            },
+            {
+              title: "Analitik Produksi",
+              text: "KPI, ranking, dan grafik berubah mengikuti tahun aktif dari 1993 sampai 2020.",
+              icon: BarChart3,
+            },
+            {
+              title: "Data Historis",
+              text: "Data explorer mendukung pencarian, filter, sorting, pagination, dan export CSV.",
+              icon: Database,
+            },
+          ].map((item) => {
+            const Icon = item.icon
+            return (
+              <article key={item.title} className="rounded-[18px] border border-white/12 p-6">
+                <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-apple-blueDark">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <h2 className="apple-display text-[28px] font-semibold leading-[1.14] text-white">
+                  {item.title}
+                </h2>
+                <p className="mt-3 text-[17px] leading-[1.47] text-[#cccccc]">{item.text}</p>
+              </article>
+            )
+          })}
+        </div>
       </section>
     </div>
   )

@@ -98,7 +98,7 @@ export default function DataExplorerTable({
         cell: ({ row }) => (
           <Link
             to={`/province/${slugifyProvince(row.original.province)}`}
-            className="font-semibold text-forest-700 hover:text-forest-900"
+            className="font-semibold text-apple-blue hover:text-apple-blueFocus"
           >
             {row.original.province}
           </Link>
@@ -175,7 +175,7 @@ export default function DataExplorerTable({
   const sortedRows = table.getSortedRowModel().rows.map((row) => row.original)
 
   return (
-    <section className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-panel">
+    <section className="overflow-hidden rounded-[18px] border border-apple-hairline bg-white">
       {showToolbar && (
         <TableToolbar
           search={search}
@@ -192,20 +192,20 @@ export default function DataExplorerTable({
       )}
 
       {!showToolbar && (
-        <div className="border-b border-slate-200 p-4">
+        <div className="border-b border-apple-hairline p-6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-forest-700">
+              <p className="text-[14px] font-normal leading-[1.43] text-apple-muted">
                 Tabel Tahun Aktif
               </p>
-              <h2 className="text-xl font-bold text-slate-950">
+              <h2 className="apple-display text-[28px] font-semibold leading-[1.14] text-apple-ink">
                 Data Provinsi {fixedYear}
               </h2>
             </div>
             <button
               type="button"
               onClick={() => exportRows(sortedRows)}
-              className="inline-flex h-10 items-center justify-center rounded-lg border border-slate-200 px-4 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+              className="apple-pill inline-flex h-10 items-center justify-center border border-apple-blue px-5 text-[14px] text-apple-blue transition hover:bg-apple-pearl"
             >
               Export CSV
             </button>
@@ -214,15 +214,15 @@ export default function DataExplorerTable({
       )}
 
       <div className="overflow-x-auto">
-        <table className="min-w-[1180px] w-full border-collapse text-left text-sm">
-          <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+        <table className="min-w-[1180px] w-full border-collapse text-left text-[14px]">
+          <thead className="bg-apple-parchment text-[12px] text-apple-muted">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   const sorted = header.column.getIsSorted()
 
                   return (
-                    <th key={header.id} className="px-4 py-3 font-bold">
+                    <th key={header.id} className="px-4 py-3 font-semibold">
                       <button
                         type="button"
                         onClick={header.column.getToggleSortingHandler()}
@@ -234,7 +234,7 @@ export default function DataExplorerTable({
                         ) : sorted === "desc" ? (
                           <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
                         ) : (
-                          <ChevronsUpDown className="h-3.5 w-3.5 text-slate-400" aria-hidden="true" />
+                          <ChevronsUpDown className="h-3.5 w-3.5 text-apple-muted" aria-hidden="true" />
                         )}
                       </button>
                     </th>
@@ -243,11 +243,11 @@ export default function DataExplorerTable({
               </tr>
             ))}
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-apple-hairline">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="transition hover:bg-forest-50/70">
+              <tr key={row.id} className="transition hover:bg-apple-pearl">
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-4 py-3 text-slate-700">
+                  <td key={cell.id} className="px-4 py-3 text-apple-ink">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -258,14 +258,14 @@ export default function DataExplorerTable({
       </div>
 
       {!table.getRowModel().rows.length && (
-        <div className="border-t border-slate-100 px-4 py-12 text-center">
-          <p className="font-semibold text-slate-800">Data tidak ditemukan</p>
-          <p className="text-sm text-slate-500">Ubah filter untuk melihat data lain.</p>
+        <div className="border-t border-apple-hairline px-4 py-12 text-center">
+          <p className="font-semibold text-apple-ink">Data tidak ditemukan</p>
+          <p className="text-[14px] text-apple-muted">Ubah filter untuk melihat data lain.</p>
         </div>
       )}
 
-      <div className="flex flex-col gap-3 border-t border-slate-200 bg-slate-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-slate-600">
+      <div className="flex flex-col gap-3 border-t border-apple-hairline bg-apple-parchment px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[14px] text-apple-muted">
           {filteredData.length} baris data
         </p>
         <div className="flex items-center gap-2">
@@ -273,19 +273,19 @@ export default function DataExplorerTable({
             type="button"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-apple-hairline bg-white text-apple-ink disabled:cursor-not-allowed disabled:opacity-45"
             aria-label="Halaman sebelumnya"
           >
             <ChevronLeft className="h-4 w-4" aria-hidden="true" />
           </button>
-          <span className="min-w-28 text-center text-sm font-semibold text-slate-700">
+          <span className="min-w-28 text-center text-[14px] font-semibold text-apple-ink">
             {table.getState().pagination.pageIndex + 1} / {table.getPageCount() || 1}
           </span>
           <button
             type="button"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-apple-hairline bg-white text-apple-ink disabled:cursor-not-allowed disabled:opacity-45"
             aria-label="Halaman berikutnya"
           >
             <ChevronRight className="h-4 w-4" aria-hidden="true" />

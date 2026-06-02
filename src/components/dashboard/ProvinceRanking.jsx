@@ -7,10 +7,10 @@ function RankingList({ title, icon: Icon, rows, valueRenderer, maxValue }) {
   return (
     <div>
       <div className="mb-3 flex items-center gap-2">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-forest-50 text-forest-700">
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-apple-pearl text-apple-blue">
           <Icon className="h-4 w-4" aria-hidden="true" />
         </span>
-        <h3 className="text-sm font-bold text-slate-900">{title}</h3>
+        <h3 className="text-[17px] font-semibold text-apple-ink">{title}</h3>
       </div>
       <div className="space-y-3">
         {rows.map((item, index) => {
@@ -22,23 +22,23 @@ function RankingList({ title, icon: Icon, rows, valueRenderer, maxValue }) {
             <Link
               key={item.id}
               to={`/province/${slugifyProvince(item.province)}`}
-              className="block rounded-lg border border-slate-100 bg-slate-50 p-3 transition hover:border-forest-200 hover:bg-forest-50"
+              className="block border-t border-apple-hairline py-3 transition first:border-t-0 hover:text-apple-blue"
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white text-sm font-bold text-forest-700">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-apple-pearl text-[14px] font-semibold text-apple-blue">
                     {index + 1}
                   </span>
-                  <span className="truncate text-sm font-semibold text-slate-800">
+                  <span className="truncate text-[14px] font-semibold text-apple-ink">
                     {item.province}
                   </span>
                 </div>
-                <span className="shrink-0 text-sm font-bold text-slate-900">
+                <span className="shrink-0 text-[14px] font-semibold text-apple-ink">
                   {valueRenderer(item, false)}
                 </span>
               </div>
-              <div className="mt-3 h-2 rounded-full bg-white">
-                <div className="h-2 rounded-full bg-forest-600" style={{ width }} />
+              <div className="mt-3 h-1.5 rounded-full bg-apple-pearl">
+                <div className="h-1.5 rounded-full bg-apple-blue" style={{ width }} />
               </div>
             </Link>
           )
@@ -58,12 +58,14 @@ export default function ProvinceRanking({ productionRanking, productivityRanking
     : 0
 
   return (
-    <aside className="rounded-lg border border-slate-200 bg-white p-4 shadow-panel">
+    <aside className="rounded-[18px] border border-apple-hairline bg-white p-6">
       <div className="mb-5">
-        <p className="text-sm font-semibold uppercase tracking-wide text-forest-700">
+        <p className="text-[14px] font-normal leading-[1.43] text-apple-muted">
           Ranking Provinsi
         </p>
-        <h2 className="text-xl font-bold text-slate-950">Performa Tahun Aktif</h2>
+        <h2 className="apple-display text-[28px] font-semibold leading-[1.14] text-apple-ink">
+          Performa Tahun Aktif
+        </h2>
       </div>
 
       <div className="space-y-6">

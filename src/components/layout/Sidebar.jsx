@@ -4,25 +4,25 @@ import { NAV_ITEMS } from "../../data/constants"
 
 function navClass({ isActive }) {
   return [
-    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition",
+    "flex items-center gap-3 rounded-full px-4 py-3 text-[14px] font-normal transition",
     isActive
-      ? "bg-forest-700 text-white shadow-panel"
-      : "text-slate-600 hover:bg-forest-50 hover:text-forest-800",
+      ? "bg-apple-blue text-white"
+      : "text-apple-muted hover:bg-apple-pearl hover:text-apple-blue",
   ].join(" ")
 }
 
 export default function Sidebar({ onNavigate }) {
   return (
-    <aside className="flex h-full flex-col border-r border-slate-200 bg-white px-4 py-5">
+    <aside className="flex h-full flex-col border-r border-apple-hairline bg-white px-4 py-5">
       <NavLink to="/" onClick={onNavigate} className="mb-8 flex items-center gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-forest-700 text-white shadow-panel">
+        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-apple-blue text-white">
           <Map className="h-5 w-5" aria-hidden="true" />
         </span>
         <span>
-          <span className="block text-base font-bold tracking-wide text-forest-900">
+          <span className="apple-display block text-[17px] font-semibold text-apple-ink">
             SIGAP
           </span>
-          <span className="block text-xs font-semibold uppercase text-harvest-600">
+          <span className="block text-[12px] font-normal text-apple-muted">
             SUMATERA
           </span>
         </span>
@@ -47,9 +47,9 @@ export default function Sidebar({ onNavigate }) {
         })}
       </nav>
 
-      <div className="mt-auto rounded-lg border border-forest-100 bg-forest-50 p-4">
-        <p className="text-xs font-semibold uppercase text-forest-700">MVP GIS</p>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+      <div className="mt-auto rounded-[18px] border border-apple-hairline bg-apple-pearl p-4">
+        <p className="text-[12px] font-semibold text-apple-blue">MVP GIS</p>
+        <p className="mt-2 text-[14px] leading-[1.43] text-apple-muted">
           Data historis padi Sumatera dengan titik ibu kota provinsi.
         </p>
       </div>

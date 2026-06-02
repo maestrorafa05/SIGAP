@@ -16,18 +16,18 @@ export default function SumateraMap({
 
   if (!validData.length) {
     return (
-      <div className="flex h-[360px] items-center justify-center rounded-lg border border-dashed border-slate-300 bg-white text-center">
+      <div className="flex h-[360px] items-center justify-center rounded-[18px] border border-dashed border-apple-hairline bg-white text-center">
         <div>
-          <AlertCircle className="mx-auto h-8 w-8 text-slate-400" aria-hidden="true" />
-          <p className="mt-2 font-semibold text-slate-700">Data koordinat tidak tersedia</p>
-          <p className="text-sm text-slate-500">Peta membutuhkan latitude dan longitude valid.</p>
+          <AlertCircle className="mx-auto h-8 w-8 text-apple-muted" aria-hidden="true" />
+          <p className="mt-2 font-semibold text-apple-ink">Data koordinat tidak tersedia</p>
+          <p className="text-[14px] text-apple-muted">Peta membutuhkan latitude dan longitude valid.</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`relative overflow-hidden rounded-lg border border-slate-200 shadow-panel ${className}`}>
+    <div className={`sigap-map relative isolate z-0 overflow-hidden rounded-[18px] border border-apple-hairline ${className}`}>
       <MapContainer
         center={[0.45, 101.6]}
         zoom={5}

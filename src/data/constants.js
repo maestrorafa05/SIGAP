@@ -23,7 +23,7 @@ export const METRIC_OPTIONS = [
     label: "Produksi",
     shortLabel: "Produksi",
     unit: "ton",
-    color: "#17623a",
+    color: "#0066cc",
     icon: Sprout,
   },
   {
@@ -31,7 +31,7 @@ export const METRIC_OPTIONS = [
     label: "Luas Panen",
     shortLabel: "Luas",
     unit: "ha",
-    color: "#b98312",
+    color: "#1d1d1f",
     icon: MapPinned,
   },
   {
@@ -39,7 +39,7 @@ export const METRIC_OPTIONS = [
     label: "Produktivitas",
     shortLabel: "Produktivitas",
     unit: "ton/ha",
-    color: "#2f8f52",
+    color: "#2997ff",
     icon: BarChart3,
   },
   {
@@ -47,7 +47,7 @@ export const METRIC_OPTIONS = [
     label: "Curah Hujan",
     shortLabel: "Hujan",
     unit: "mm",
-    color: "#2498d8",
+    color: "#0071e3",
     icon: CloudRain,
   },
   {
@@ -55,7 +55,7 @@ export const METRIC_OPTIONS = [
     label: "Kelembapan",
     shortLabel: "Kelembapan",
     unit: "%",
-    color: "#15699d",
+    color: "#333333",
     icon: Droplets,
   },
   {
@@ -63,7 +63,7 @@ export const METRIC_OPTIONS = [
     label: "Suhu Rata-rata",
     shortLabel: "Suhu",
     unit: "C",
-    color: "#e4b52d",
+    color: "#7a7a7a",
     icon: ThermometerSun,
   },
 ]
@@ -83,14 +83,14 @@ export const DATASET_STATS = [
 ]
 
 export const CHART_COLORS = {
-  production: "#17623a",
-  harvestArea: "#b98312",
-  productivity: "#2f8f52",
-  rainfall: "#2498d8",
-  humidity: "#15699d",
-  avgTemperature: "#e4b52d",
-  grid: "#dce6df",
-  axis: "#64748b",
+  production: "#0066cc",
+  harvestArea: "#1d1d1f",
+  productivity: "#2997ff",
+  rainfall: "#0071e3",
+  humidity: "#333333",
+  avgTemperature: "#7a7a7a",
+  grid: "#e0e0e0",
+  axis: "#7a7a7a",
 }
 
 export const ABOUT_VARIABLES = [

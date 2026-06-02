@@ -15,12 +15,12 @@ export default function ProductionBarChart({ data, selectedYear }) {
   if (!data.length) return <ChartEmptyState />
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-panel">
+    <section className="rounded-[18px] border border-apple-hairline bg-white p-6">
       <div className="mb-4">
-        <p className="text-sm font-semibold uppercase tracking-wide text-forest-700">
+        <p className="text-[14px] font-normal leading-[1.43] text-apple-muted">
           Produksi
         </p>
-        <h2 className="text-xl font-bold text-slate-950">
+        <h2 className="apple-display text-[28px] font-semibold leading-[1.14] text-apple-ink">
           Produksi Padi per Provinsi {selectedYear}
         </h2>
       </div>
@@ -44,7 +44,7 @@ export default function ProductionBarChart({ data, selectedYear }) {
               formatter={(value) => [`${formatNumber(value)} ton`, "Produksi"]}
               labelStyle={{ fontWeight: 700 }}
             />
-            <Bar dataKey="production" fill={CHART_COLORS.production} radius={[6, 6, 0, 0]} />
+            <Bar dataKey="production" fill={CHART_COLORS.production} radius={[8, 8, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

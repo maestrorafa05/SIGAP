@@ -2,8 +2,8 @@ import { METRIC_OPTIONS } from "../../data/constants"
 
 export default function MetricFilter({ selectedMetric, onChange }) {
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-panel">
-      <p className="text-sm font-semibold text-slate-700">Metrik Peta</p>
+    <div className="rounded-[18px] border border-apple-hairline bg-white p-6">
+      <p className="text-[17px] font-semibold text-apple-ink">Metrik Peta</p>
       <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
         {METRIC_OPTIONS.map((metric) => {
           const Icon = metric.icon
@@ -15,10 +15,10 @@ export default function MetricFilter({ selectedMetric, onChange }) {
               type="button"
               onClick={() => onChange(metric.key)}
               className={[
-                "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition",
+                "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-4 py-2 text-[14px] font-normal transition",
                 active
-                  ? "border-forest-700 bg-forest-700 text-white shadow-panel"
-                  : "border-slate-200 bg-white text-slate-600 hover:border-forest-200 hover:bg-forest-50",
+                  ? "border-apple-blue bg-apple-blue text-white"
+                  : "border-black/10 bg-white text-apple-ink hover:border-apple-blue hover:text-apple-blue",
               ].join(" ")}
               title={metric.label}
             >

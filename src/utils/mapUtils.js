@@ -47,6 +47,6 @@ export function getMetricColor(item, metric, data) {
   const ratio = (value - min) / (max - min)
 
   if (ratio > 0.66) return config.color
-  if (ratio > 0.33) return "#e4b52d"
-  return "#2498d8"
+  if (ratio > 0.33) return "#0071e3"
+  return "#7a7a7a"
 }

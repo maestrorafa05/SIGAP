@@ -1,48 +1,85 @@
-import { Menu, Search } from "lucide-react"
-import { useLocation } from "react-router-dom"
+import { useState } from "react"
+import { Menu, Search, X } from "lucide-react"
+import { Link, NavLink } from "react-router-dom"
+import { NAV_ITEMS } from "../../data/constants"
 
-const pageTitles = {
-  "/": "Home",
-  "/dashboard": "Dashboard",
-  "/data": "Data Explorer",
-  "/about": "About",
-}
+export default function Topbar() {
+  const [open, setOpen] = useState(false)
 
-function getTitle(pathname) {
-  if (pathname.startsWith("/province/")) return "Detail Provinsi"
-  return pageTitles[pathname] ?? "SIGAP SUMATERA"
-}
-
-export default function Topbar({ onMenuClick }) {
-  const location = useLocation()
+  function navClass({ isActive }) {
+    return [
+      "text-[12px] leading-none transition hover:text-white",
+      isActive ? "text-white" : "text-white/70",
+    ].join(" ")
+  }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 px-4 py-3 backdrop-blur lg:px-8">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex min-w-0 items-center gap-3">
+    <header className="sticky top-0 z-[5000] isolate">
+      <div className="h-11 bg-apple-black text-white">
+        <div className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-4 sm:px-6">
+          <Link
+            to="/"
+            className="apple-display text-[12px] font-semibold leading-none text-white"
+            onClick={() => setOpen(false)}
+          >
+            SIGAP SUMATERA
+          </Link>
+
+          <nav className="hidden items-center gap-6 md:flex">
+            {NAV_ITEMS.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path === "/"}
+                className={navClass}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className="hidden items-center gap-4 text-[12px] leading-none text-white/70 md:flex">
+            <Search className="h-3.5 w-3.5" aria-hidden="true" />
+            <span>1993-2020</span>
+          </div>
+
           <button
             type="button"
-            onClick={onMenuClick}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 lg:hidden"
-            aria-label="Buka navigasi"
+            onClick={() => setOpen((value) => !value)}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white md:hidden"
+            aria-label={open ? "Tutup navigasi" : "Buka navigasi"}
           >
-            <Menu className="h-5 w-5" aria-hidden="true" />
+            {open ? (
+              <X className="h-5 w-5" aria-hidden="true" />
+            ) : (
+              <Menu className="h-5 w-5" aria-hidden="true" />
+            )}
           </button>
-          <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-wide text-forest-700">
-              SIGAP SUMATERA
-            </p>
-            <h1 className="truncate text-lg font-bold text-slate-900">
-              {getTitle(location.pathname)}
-            </h1>
-          </div>
-        </div>
-
-        <div className="hidden items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-500 md:flex">
-          <Search className="h-4 w-4" aria-hidden="true" />
-          <span>Dataset 1993-2020</span>
         </div>
       </div>
+
+      {open && (
+        <div className="relative z-[5001] border-b border-white/10 bg-apple-black px-4 py-4 text-white md:hidden">
+          <nav className="mx-auto grid max-w-[1440px] gap-3">
+            {NAV_ITEMS.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path === "/"}
+                onClick={() => setOpen(false)}
+                className={({ isActive }) =>
+                  [
+                    "rounded-lg px-3 py-3 text-[17px] transition",
+                    isActive ? "bg-white/12 text-white" : "text-white/72",
+                  ].join(" ")
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   )
 }

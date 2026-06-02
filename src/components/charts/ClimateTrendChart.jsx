@@ -21,12 +21,14 @@ export default function ClimateTrendChart({
   if (!data.length) return <ChartEmptyState />
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-panel">
+    <section className="rounded-[18px] border border-apple-hairline bg-white p-6">
       <div className="mb-4">
-        <p className="text-sm font-semibold uppercase tracking-wide text-climate-700">
+        <p className="text-[14px] font-normal leading-[1.43] text-apple-muted">
           {subtitle}
         </p>
-        <h2 className="text-xl font-bold text-slate-950">{title}</h2>
+        <h2 className="apple-display text-[28px] font-semibold leading-[1.14] text-apple-ink">
+          {title}
+        </h2>
       </div>
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">

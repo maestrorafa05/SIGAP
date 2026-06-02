@@ -1,5 +1,14 @@
 import { Link, useParams } from "react-router-dom"
-import { AlertCircle, ArrowLeft, CloudRain, Droplets, MapPin, Sprout, ThermometerSun, Wheat } from "lucide-react"
+import {
+  AlertCircle,
+  ArrowLeft,
+  CloudRain,
+  Droplets,
+  MapPin,
+  Sprout,
+  ThermometerSun,
+  Wheat,
+} from "lucide-react"
 import ClimateTrendChart from "../components/charts/ClimateTrendChart"
 import HarvestAreaChart from "../components/charts/HarvestAreaChart"
 import ProductionTrendChart from "../components/charts/ProductionTrendChart"
@@ -11,12 +20,28 @@ import { formatDecimal, formatNumber } from "../utils/formatter"
 
 function PageState({ title, text }) {
   return (
-    <div className="flex min-h-[360px] items-center justify-center rounded-lg border border-dashed border-slate-300 bg-white text-center">
-      <div>
-        <AlertCircle className="mx-auto h-9 w-9 text-slate-400" aria-hidden="true" />
-        <h2 className="mt-3 text-lg font-bold text-slate-900">{title}</h2>
-        <p className="mt-1 text-slate-500">{text}</p>
+    <div className="apple-tile bg-apple-parchment py-16">
+      <div className="mx-auto flex min-h-[360px] max-w-[980px] items-center justify-center rounded-[18px] border border-dashed border-apple-hairline bg-white text-center">
+        <div>
+          <AlertCircle className="mx-auto h-9 w-9 text-apple-muted" aria-hidden="true" />
+          <h2 className="apple-display mt-3 text-[28px] font-semibold leading-[1.14] text-apple-ink">
+            {title}
+          </h2>
+          <p className="mt-2 text-[17px] text-apple-muted">{text}</p>
+        </div>
       </div>
+    </div>
+  )
+}
+
+function InsightCard({ label, value, detail }) {
+  return (
+    <div className="rounded-[18px] border border-apple-hairline bg-white p-6">
+      <p className="text-[14px] leading-[1.43] text-apple-muted">{label}</p>
+      <p className="apple-display mt-2 text-[28px] font-semibold leading-[1.14] text-apple-ink">
+        {value}
+      </p>
+      {detail && <p className="mt-2 text-[14px] leading-[1.43] text-apple-muted">{detail}</p>}
     </div>
   )
 }
@@ -45,134 +70,126 @@ export default function ProvinceDetail() {
   }
 
   return (
-    <div className="space-y-6">
-      <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-panel">
-        <Link
-          to="/dashboard"
-          className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-forest-700 hover:text-forest-900"
-        >
-          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-          Dashboard
-        </Link>
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-forest-700">
-              Detail Provinsi
-            </p>
-            <h1 className="mt-1 text-3xl font-black text-slate-950">
-              {latestRecord.province}
-            </h1>
-            <p className="mt-2 flex flex-wrap items-center gap-2 text-slate-600">
-              <MapPin className="h-4 w-4 text-forest-700" aria-hidden="true" />
-              {latestRecord.capitalCity} | {formatDecimal(latestRecord.latitude, 5)},{" "}
-              {formatDecimal(latestRecord.longitude, 5)}
-            </p>
-          </div>
-          <div className="rounded-lg border border-forest-100 bg-forest-50 px-4 py-3 text-sm font-semibold text-forest-800">
-            Data terbaru: {latestRecord.year}
+    <div className="bg-apple-parchment">
+      <section className="apple-tile bg-white py-14 sm:py-16">
+        <div className="mx-auto max-w-[1440px]">
+          <Link
+            to="/dashboard"
+            className="mb-7 inline-flex items-center gap-2 text-[17px] leading-[1.47] text-apple-blue hover:text-apple-blueFocus"
+          >
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            Dashboard
+          </Link>
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="apple-display text-[21px] font-semibold leading-[1.19] text-apple-ink">
+                Detail Provinsi
+              </p>
+              <h1 className="apple-display mt-2 text-[40px] font-semibold leading-[1.1] text-apple-ink sm:text-[56px] sm:leading-[1.07]">
+                {latestRecord.province}
+              </h1>
+              <p className="mt-4 flex flex-wrap items-center gap-2 text-[17px] leading-[1.47] text-apple-muted">
+                <MapPin className="h-4 w-4 text-apple-blue" aria-hidden="true" />
+                {latestRecord.capitalCity} | {formatDecimal(latestRecord.latitude, 5)},{" "}
+                {formatDecimal(latestRecord.longitude, 5)}
+              </p>
+            </div>
+            <div className="w-fit rounded-full border border-apple-hairline bg-apple-pearl px-5 py-3 text-[14px] text-apple-muted">
+              Data terbaru: {latestRecord.year}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        <KpiCard
-          title="Produksi"
-          value={`${formatNumber(latestRecord.production)} ton`}
-          subtitle={`Tahun ${latestRecord.year}`}
-          icon={Sprout}
-          tone="green"
-        />
-        <KpiCard
-          title="Luas Panen"
-          value={`${formatNumber(latestRecord.harvestArea)} ha`}
-          subtitle="Area panen provinsi"
-          icon={MapPin}
-          tone="gold"
-        />
-        <KpiCard
-          title="Produktivitas"
-          value={`${formatDecimal(latestRecord.productivity, 2)} ton/ha`}
-          subtitle="Produksi dibagi luas panen"
-          icon={Wheat}
-          tone="green"
-        />
-        <KpiCard
-          title="Curah Hujan"
-          value={`${formatDecimal(latestRecord.rainfall, 1)} mm`}
-          subtitle="Variabel agro-klimatologi"
-          icon={CloudRain}
-          tone="blue"
-        />
-        <KpiCard
-          title="Kelembapan"
-          value={`${formatDecimal(latestRecord.humidity, 1)}%`}
-          subtitle="Rata-rata kelembapan"
-          icon={Droplets}
-          tone="blue"
-        />
-        <KpiCard
-          title="Suhu Rata-rata"
-          value={`${formatDecimal(latestRecord.avgTemperature, 2)} C`}
-          subtitle="Rata-rata suhu"
-          icon={ThermometerSun}
-          tone="slate"
-        />
-      </section>
+      <section className="apple-tile py-8">
+        <div className="mx-auto max-w-[1440px] space-y-6">
+          <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <KpiCard
+              title="Produksi"
+              value={`${formatNumber(latestRecord.production)} ton`}
+              subtitle={`Tahun ${latestRecord.year}`}
+              icon={Sprout}
+              tone="green"
+            />
+            <KpiCard
+              title="Luas Panen"
+              value={`${formatNumber(latestRecord.harvestArea)} ha`}
+              subtitle="Area panen provinsi"
+              icon={MapPin}
+              tone="gold"
+            />
+            <KpiCard
+              title="Produktivitas"
+              value={`${formatDecimal(latestRecord.productivity, 2)} ton/ha`}
+              subtitle="Produksi dibagi luas panen"
+              icon={Wheat}
+              tone="green"
+            />
+            <KpiCard
+              title="Curah Hujan"
+              value={`${formatDecimal(latestRecord.rainfall, 1)} mm`}
+              subtitle="Variabel agro-klimatologi"
+              icon={CloudRain}
+              tone="blue"
+            />
+            <KpiCard
+              title="Kelembapan"
+              value={`${formatDecimal(latestRecord.humidity, 1)}%`}
+              subtitle="Rata-rata kelembapan"
+              icon={Droplets}
+              tone="blue"
+            />
+            <KpiCard
+              title="Suhu Rata-rata"
+              value={`${formatDecimal(latestRecord.avgTemperature, 2)} C`}
+              subtitle="Rata-rata suhu"
+              icon={ThermometerSun}
+              tone="slate"
+            />
+          </section>
 
-      <ProductionTrendChart data={provinceData} province={latestRecord.province} />
+          <ProductionTrendChart data={provinceData} province={latestRecord.province} />
 
-      <section className="grid gap-6 xl:grid-cols-2">
-        <HarvestAreaChart data={provinceData} />
-        <ProductivityChart data={provinceData} />
-      </section>
+          <section className="grid gap-6 xl:grid-cols-2">
+            <HarvestAreaChart data={provinceData} />
+            <ProductivityChart data={provinceData} />
+          </section>
 
-      <ClimateTrendChart
-        data={provinceData}
-        title={`Agro-Klimatologi ${latestRecord.province}`}
-        subtitle="Tren 1993-2020"
-      />
+          <ClimateTrendChart
+            data={provinceData}
+            title={`Agro-Klimatologi ${latestRecord.province}`}
+            subtitle="Tren 1993-2020"
+          />
 
-      <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-panel">
-        <p className="text-sm font-semibold uppercase tracking-wide text-forest-700">
-          Insight Ringkas
-        </p>
-        <h2 className="mt-1 text-2xl font-bold text-slate-950">
-          Perubahan Produksi {firstRecord.year}-{latestRecord.year}
-        </h2>
-        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-lg bg-slate-50 p-4">
-            <p className="text-sm text-slate-500">Produksi tertinggi</p>
-            <p className="mt-2 text-lg font-bold text-slate-900">
-              {insight.highestProductionYear.year}
-            </p>
-            <p className="text-sm text-slate-600">
-              {formatNumber(insight.highestProductionYear.production)} ton
-            </p>
-          </div>
-          <div className="rounded-lg bg-slate-50 p-4">
-            <p className="text-sm text-slate-500">Produksi terendah</p>
-            <p className="mt-2 text-lg font-bold text-slate-900">
-              {insight.lowestProductionYear.year}
-            </p>
-            <p className="text-sm text-slate-600">
-              {formatNumber(insight.lowestProductionYear.production)} ton
-            </p>
-          </div>
-          <div className="rounded-lg bg-slate-50 p-4">
-            <p className="text-sm text-slate-500">Rata-rata produksi</p>
-            <p className="mt-2 text-lg font-bold text-slate-900">
-              {formatNumber(insight.averageProduction)} ton
-            </p>
-          </div>
-          <div className="rounded-lg bg-slate-50 p-4">
-            <p className="text-sm text-slate-500">Perubahan awal-akhir</p>
-            <p className="mt-2 text-lg font-bold text-slate-900">
-              {formatNumber(insight.productionChange)} ton
-            </p>
-            <p className="text-sm text-slate-600">
-              {formatDecimal(insight.productionChangePercent, 2)}%
-            </p>
-          </div>
+          <section>
+            <div className="mb-5">
+              <p className="text-[14px] leading-[1.43] text-apple-muted">Insight Ringkas</p>
+              <h2 className="apple-display mt-1 text-[34px] font-semibold leading-[1.47] text-apple-ink">
+                Perubahan Produksi {firstRecord.year}-{latestRecord.year}
+              </h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <InsightCard
+                label="Produksi tertinggi"
+                value={insight.highestProductionYear.year}
+                detail={`${formatNumber(insight.highestProductionYear.production)} ton`}
+              />
+              <InsightCard
+                label="Produksi terendah"
+                value={insight.lowestProductionYear.year}
+                detail={`${formatNumber(insight.lowestProductionYear.production)} ton`}
+              />
+              <InsightCard
+                label="Rata-rata produksi"
+                value={`${formatNumber(insight.averageProduction)} ton`}
+              />
+              <InsightCard
+                label="Perubahan awal-akhir"
+                value={`${formatDecimal(insight.productionChangePercent, 2)}%`}
+                detail={`${formatNumber(insight.productionChange)} ton`}
+              />
+            </div>
+          </section>
         </div>
       </section>
     </div>
