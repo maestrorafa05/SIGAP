@@ -1,14 +1,14 @@
 import { getMetricConfig, getMetricValue } from "../../utils/mapUtils"
 import { formatMetric } from "../../utils/formatter"
 
-export default function MapLegend({ metric, data }) {
+export default function MapLegend({ metric, data, className = "bottom-4 left-4" }) {
   const config = getMetricConfig(metric)
   const values = data.map((item) => getMetricValue(item, metric)).filter(Number.isFinite)
   const min = values.length ? Math.min(...values) : 0
   const max = values.length ? Math.max(...values) : 0
 
   return (
-    <div className="absolute bottom-4 left-4 z-30 w-56 rounded-[18px] border border-apple-hairline bg-white p-4">
+    <div className={`absolute z-30 w-56 rounded-[18px] border border-white/70 bg-white/90 p-4 backdrop-blur-xl ${className}`}>
       <div className="flex items-center gap-2">
         <span
           className="h-3 w-3 rounded-full"

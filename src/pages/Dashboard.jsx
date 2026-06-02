@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   AlertCircle,
@@ -29,7 +29,7 @@ const DASHBOARD_FEATURES = [
   {
     id: "map",
     label: "Peta",
-    description: "Marker, bubble, popup, dan lokasi provinsi.",
+    description: "Pin, popup, cakupan, dan lokasi provinsi.",
     icon: MapPinned,
   },
   {
@@ -185,18 +185,21 @@ function ControlsPanel({
   const maxYear = years[years.length - 1] ?? 2020
 
   return (
-    <div className="mb-5 rounded-[18px] border border-apple-hairline bg-white p-4">
-      <div className="grid gap-4 2xl:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)]">
-        <div>
-          <label htmlFor="dashboard-year" className="text-[14px] font-semibold text-apple-ink">
+    <div className="mb-4 rounded-[18px] border border-apple-hairline bg-white px-4 py-3">
+      <div className="grid gap-3 xl:grid-cols-[minmax(240px,0.55fr)_minmax(0,1fr)] xl:items-center">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label
+            htmlFor="dashboard-year"
+            className="w-16 shrink-0 text-[13px] font-semibold text-apple-ink"
+          >
             Tahun
           </label>
-          <div className="mt-2 flex items-center gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
             <select
               id="dashboard-year"
               value={selectedYear}
               onChange={(event) => setSelectedYear(Number(event.target.value))}
-              className="h-10 rounded-full border border-black/10 bg-white px-4 text-[14px] text-apple-ink outline-none transition focus:border-apple-blueFocus focus:ring-2 focus:ring-apple-blueFocus"
+              className="h-9 rounded-full border border-black/10 bg-white px-3 text-[14px] text-apple-ink outline-none transition focus:border-apple-blueFocus focus:ring-2 focus:ring-apple-blueFocus"
             >
               {years.map((year) => (
                 <option key={year} value={year}>
@@ -216,9 +219,9 @@ function ControlsPanel({
           </div>
         </div>
 
-        <div>
-          <p className="text-[14px] font-semibold text-apple-ink">Metrik Peta</p>
-          <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <p className="w-24 shrink-0 text-[13px] font-semibold text-apple-ink">Metrik</p>
+          <div className="grid min-w-0 flex-1 grid-cols-2 gap-1.5 md:grid-cols-3 2xl:grid-cols-6">
             {METRIC_OPTIONS.map((metric) => {
               const Icon = metric.icon
               const active = selectedMetric === metric.key
@@ -229,14 +232,15 @@ function ControlsPanel({
                   type="button"
                   onClick={() => setSelectedMetric(metric.key)}
                   className={[
-                    "inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full border px-4 text-[14px] transition",
+                    "inline-flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-full border px-3 text-[13px] transition",
                     active
                       ? "border-apple-blue bg-apple-blue text-white"
                       : "border-black/10 bg-white text-apple-ink hover:border-apple-blue hover:text-apple-blue",
                   ].join(" ")}
+                  title={metric.label}
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
-                  {metric.shortLabel}
+                  <span className="truncate">{metric.shortLabel}</span>
                 </button>
               )
             })}
@@ -254,10 +258,6 @@ export default function Dashboard() {
   const [selectedProvince, setSelectedProvince] = useState(null)
   const [activeFeature, setActiveFeature] = useState("map")
   const dashboard = useDashboardData(data, selectedYear, selectedProvince)
-  const activeMetric = useMemo(
-    () => METRIC_OPTIONS.find((metric) => metric.key === selectedMetric) ?? METRIC_OPTIONS[0],
-    [selectedMetric],
-  )
 
   const activeProvince = useMemo(() => {
     if (!dashboard.yearlyData.length) return null
@@ -267,12 +267,6 @@ export default function Dashboard() {
       dashboard.yearlyData[0]
     )
   }, [dashboard.summary.highestProductionProvince, dashboard.yearlyData, selectedProvince])
-
-  useEffect(() => {
-    if (!selectedProvince && dashboard.trendProvince) {
-      setSelectedProvince(dashboard.trendProvince)
-    }
-  }, [dashboard.trendProvince, selectedProvince])
 
   if (loading) {
     return <PageState title="Memuat dashboard" text="Dataset padi Sumatera sedang diproses." />
@@ -408,30 +402,12 @@ export default function Dashboard() {
 
     return (
       <section className="min-h-0">
-        <div className="mb-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-[14px] leading-[1.43] text-apple-muted">Fitur Peta</p>
-            <h2 className="apple-display text-[34px] font-semibold leading-[1.18] text-apple-ink">
-              Sebaran padi Sumatera
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-white px-4 py-2 text-[14px] text-apple-muted">
-              Bubble: {activeMetric.label}
-            </span>
-            {activeProvince && (
-              <span className="rounded-full bg-white px-4 py-2 text-[14px] text-apple-muted">
-                Fokus: {activeProvince.province}
-              </span>
-            )}
-          </div>
-        </div>
-
         <SumateraMap
           data={dashboard.yearlyData}
           metric={selectedMetric}
           onSelectProvince={setSelectedProvince}
-          className="h-[calc(100dvh-300px)]"
+          selectedProvince={selectedProvince}
+          className="sigap-map-feature"
         />
       </section>
     )

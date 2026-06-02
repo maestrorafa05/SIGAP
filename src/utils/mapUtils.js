@@ -35,6 +35,18 @@ export function getBubbleRadius(item, metric, data) {
   return 9 + ratio * 19
 }
 
+export function getCoverageRadius(item, metric, data) {
+  const values = data.map((row) => getMetricValue(row, metric)).filter(Number.isFinite)
+  const min = Math.min(...values)
+  const max = Math.max(...values)
+  const value = getMetricValue(item, metric)
+
+  if (!Number.isFinite(value) || max === min) return 150000
+
+  const ratio = (value - min) / (max - min)
+  return 110000 + ratio * 150000
+}
+
 export function getMetricColor(item, metric, data) {
   const config = getMetricConfig(metric)
   const values = data.map((row) => getMetricValue(row, metric)).filter(Number.isFinite)

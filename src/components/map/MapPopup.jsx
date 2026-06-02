@@ -12,7 +12,7 @@ function Row({ label, value }) {
   )
 }
 
-export default function MapPopup({ item }) {
+export default function MapPopup({ item, showCoverageNote = false }) {
   const productivity = calculateProductivity(item.production, item.harvestArea)
 
   return (
@@ -35,6 +35,13 @@ export default function MapPopup({ item }) {
         <Row label="Kelembapan" value={`${formatDecimal(item.humidity, 1)}%`} />
         <Row label="Suhu Rata-rata" value={`${formatDecimal(item.avgTemperature, 2)} C`} />
       </div>
+
+      {showCoverageNote && (
+        <div className="mt-3 rounded-[14px] bg-apple-pearl p-3 text-[12px] leading-[1.3] text-apple-muted">
+          Cakupan yang tampil adalah radius indikatif dari titik ibu kota provinsi,
+          bukan batas administratif provinsi.
+        </div>
+      )}
 
       <Link
         to={`/province/${slugifyProvince(item.province)}`}
